@@ -33,5 +33,3 @@ table(full$Sex, full$Title)
 full$Surname <- sapply(full$Name,  
                        function(x) strsplit(x, split = '[,.]')[[1]][1])
 cat(paste('We have <b>', nlevels(factor(full$Surname)), '</b> unique surnames. I would be interested to infer ethnicity based on surname --- another time.'))
-#test
-print $b
