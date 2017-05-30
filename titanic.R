@@ -83,6 +83,16 @@ ggplot(full[full$Pclass == '3' & full$Embarked == 'S', ],
 # Replace missing fare value with median fare for class/embarkment
 full$Fare[1044] <- median(full[full$Pclass == '3' & full$Embarked == 'S', ]$Fare, na.rm = TRUE)
 
+# Fare
+ggplot(full[1:891,], aes(x = Fare, fill = factor(Survived))) +
+  geom_bar(stat='count', position='dodge') +
+  scale_x_continuous(breaks=c(1:600)) +
+  labs(x = 'Fare') +
+  theme_few()
+
+
+
+
 # Impute Age #######################################################
 # Show number of missing Age values
 sum(is.na(full$Age))
@@ -143,9 +153,13 @@ test <- full[892:1309,]
 # Set a random seed
 set.seed(754)
 # Build the model (note: not all possible variables are used)
+# rf_model <- randomForest(factor(Survived) ~ Pclass + Sex + Age + SibSp + Parch + 
+#                            Fare + Embarked + Title + 
+#                            FsizeD + Child + Mother,
+#                          data = train)
 rf_model <- randomForest(factor(Survived) ~ Pclass + Sex + Age + SibSp + Parch + 
-                           Fare + Embarked + Title + 
-                           FsizeD + Child + Mother,
+                           Fare + Embarked +  
+                           Fsize + Child + Mother,
                          data = train)
 # Show model error
 # The black line shows the overall error rate which falls below 20%. The red and green lines show the error rate for 'died' and 'survived' respectively. We can see that right now we're much more successful predicting death than we are survival. What does that say about me, I wonder?
@@ -177,3 +191,4 @@ prediction <- predict(rf_model, test)
 solution <- data.frame(PassengerID = test$PassengerId, Survived = prediction)
 # Write the solution to file
 write.csv(solution, file = 'rf_mod_Solution.csv', row.names = F)
+cor(full$Survived,full$Sex,use="pairwise.complete.obs", method="pearson")
