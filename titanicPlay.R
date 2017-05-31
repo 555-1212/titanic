@@ -5,6 +5,10 @@ source("titanicData.R")
 ## Engineer features
 source("titanicEngineer.R")
 
+
+
+
+
 nums <- sapply(full, is.numeric)
 full[ , nums]
 survived=train$Survived
