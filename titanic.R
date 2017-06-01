@@ -1,19 +1,18 @@
 source("titanicPackages.R")     # Load packages
-source("titanicData.R")         # Read/write data
-source("titanicAddFeature.R")   # Add features
 source("titanicModel.R")        # Model
+source("titanicFeature.R")      # Add features
 
-train_test <- loadTrainTest()
-train_test <- addTitle(train_test)
-train_test <- addFamilySize(train_test)
-train_test <- addDeck(train_test)
-train_test <- imputeEmbarked(train_test)
-train_test <- imputeFare(train_test)
-train_test <- imputeAge(train_test)
-train_test <- addChildMother(train_test)
+m <- Model$new('./input/train.csv','./input/test.csv','rf_mod_Solution.csv')
+m$addTitle()
+m$addFamilySize()
+m$addDeck()
+m$imputeEmbarked()
+m$imputeFare()
+m$imputeAge()
+m$addChildMother()
 
-md.pattern(train_test)  # All data we care about is imputed
-
+#md.pattern(train_test)  # All data we care about is imputed
+#add function to test model against training set
 # Predict
 rf_model <-
   modelRandomForest(as.formula(
