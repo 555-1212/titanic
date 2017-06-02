@@ -4,8 +4,6 @@
 Model$set("public", "addTitle", function() {
   private$train_test$Title <-
     gsub('(.*, )|(\\..*)', '', private$train_test$Name)
-  # Show title counts by sex
-  table(private$train_test$Sex, private$train_test$Title)
   # Titles with very low cell counts to be combined to "rare" level
   rare_title <-
     c(
@@ -26,8 +24,6 @@ Model$set("public", "addTitle", function() {
   private$train_test$Title[private$train_test$Title == 'Ms']          <- 'Miss'
   private$train_test$Title[private$train_test$Title == 'Mme']         <- 'Mrs'
   private$train_test$Title[private$train_test$Title %in% rare_title]  <- 'Rare Title'
-  # Show title counts by sex again
-  table(private$train_test$Sex, private$train_test$Title)
 })
 
 # Family size
@@ -112,7 +108,6 @@ ggplot(embark_fare, aes(
   theme_few()
 # Since their fare was $80 for 1st class, they most likely embarked from 'C'
 private$train_test$Embarked[c(62, 830)] <- 'C'
-return(private$train_test)
 })
 
 # Impute Fare
