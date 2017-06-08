@@ -65,8 +65,9 @@ Model$set("public", "compareTraining", function() {
  # sample <- sample.int(private$train_rows, size = floor(.75*nrow(private$train_rows)), replace = F)
 #  train <- private$train_test[1:private$train_rows,][sample, ]
 #  test  <- private$train_test[1:private$train_rows,][-sample, ]
-  private$train_test$Prediction <-
-    predict(private$rf_model, private$train_test) # Predict using the test set
+  private$train_test$Prediction <- predict(private$rf_model, private$train_test[(private$train_rows + 1):private$train_test_rows,], OOB=TRUE, type = "response")
+#  private$train_test$Prediction <-
+#    predict(private$rf_model, private$train_test) # Predict using the test set
   # Save the solution to a dataframe with two columns: PassengerId and Survived (prediction)
 #   solution <-
 #     data.frame(PassengerID = private$train_test[1:private$train_rows,]$PassengerId, Survived = prediction)
