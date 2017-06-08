@@ -32,13 +32,13 @@ Model$set("public", "addFamilySize", function() {
   private$train_test$Surname <- sapply(private$train_test$Name,
                        function(x)
                          strsplit(x, split = '[,.]')[[1]][1])
-  cat(
-    paste(
-      'We have <b>',
-      nlevels(factor(private$train_test$Surname)),
-      '</b> unique surnames. I would be interested to infer ethnicity based on surname --- another time.'
-    )
-  )
+  # cat(
+  #   paste(
+  #     'We have <b>',
+  #     nlevels(factor(private$train_test$Surname)),
+  #     '</b> unique surnames. I would be interested to infer ethnicity based on surname --- another time.'
+  #   )
+  # )
   # Create a family size variable including the passenger themselves
   private$train_test$Fsize <- private$train_test$SibSp + private$train_test$Parch + 1
   # Create a family variable
